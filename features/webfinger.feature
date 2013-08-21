@@ -5,6 +5,6 @@ Feature: Webfinger request
 
 
   Scenario: Existing user account
-  Given an existing user account 'ladila'
-  When I make a request to 'well-known-ladila'
+  Given an existing user account with id "ID"
+  When I make a webfinger-request to an existing diaspora pod with url "URL"
   Then I should receive a valid webfinger document
