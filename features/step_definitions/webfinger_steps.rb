@@ -16,11 +16,8 @@ Given(/^an existing webfinger document$/) do
   @webfinger = Nokogiri::XML(open(@response))
 end
 Then(/^I make a hcard\-request$/) do
-  @webfinger.xpath('//xmlns:Link').each do |hcard|
-    
-  end
-
-  pending # express the regexp above with the code you wish you had
+  hcard= @webfinger.xpath('//xmlns:Link')[0].attr('href')
+  RestClient.get hcard
 end
 
 Then(/^I should receive a valid hcard document$/) do
