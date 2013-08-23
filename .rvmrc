@@ -1,1 +1,1 @@
-rvm use 1.9.3@federation-testbed --create --fuzzy
+rvm use 1.9.3@federation-testbed --create

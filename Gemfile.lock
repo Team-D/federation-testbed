@@ -19,11 +19,14 @@ GEM
     diff-lcs (1.2.4)
     gherkin (2.12.1)
       multi_json (~> 1.3)
+    mime-types (1.24)
     mini_portile (0.5.1)
     multi_json (1.7.9)
     multi_test (0.0.2)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     valid (0.3.1)
 
 PLATFORMS
@@ -32,3 +35,5 @@ PLATFORMS
 DEPENDENCIES
   cucumber (= 1.3.6)
   diaspora-federation!
+  nokogiri
+  rest-client (= 1.6.7)
