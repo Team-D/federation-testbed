@@ -35,8 +35,5 @@ PLATFORMS
 DEPENDENCIES
   cucumber (= 1.3.6)
   diaspora-federation!
-<<<<<<< Updated upstream
   nokogiri
-=======
->>>>>>> Stashed changes
   rest-client (= 1.6.7)
