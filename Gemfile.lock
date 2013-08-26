@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:Raven24/diaspora-federation.git
-  revision: e0e5cfdc6ea8b8581c6aeb5a661f9b009640a0ef
+  remote: https://github.com/Raven24/diaspora-federation.git
+  revision: 57ab999ffafe320ec000d99ff9d8f2d137b4004a
   specs:
     diaspora-federation (0.0.1pre)
       nokogiri (~> 1.6.0)
@@ -35,5 +35,8 @@ PLATFORMS
 DEPENDENCIES
   cucumber (= 1.3.6)
   diaspora-federation!
+<<<<<<< Updated upstream
   nokogiri
+=======
+>>>>>>> Stashed changes
   rest-client (= 1.6.7)

@@ -22,4 +22,18 @@ end
 
 Then(/^I should receive a valid hcard document$/) do
   pending # express the regexp above with the code you wish you had
+
+When(/^I make a webfinger\-request to an existing diaspora pod with url "(.*?)"$/) do |arg1|
+  RestClient.get 'https://joindiaspora.com/webfinger?q=acct:mokus@joindiaspora.com'
 end
+
+Then(/^the document type should be XML$/) do
+  @response.to_s.index("application/xrd+xml") == 0
+end
+
+Then(/^the webfinger document contains the link to the hcard$/) do
+	@response.to_s.index("hcard") > 0
+end
+
+
+
