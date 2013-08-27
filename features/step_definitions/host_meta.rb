@@ -1,7 +1,3 @@
-Given(/^an existing server$/) do
-  @server = "joindiaspora.com"
-end
-
 When(/^I send a host meta request to an existing diaspora pod$/) do
   @response = RestClient.get @server + "/.well-known/host-meta"
 end

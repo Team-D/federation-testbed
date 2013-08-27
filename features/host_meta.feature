@@ -1,7 +1,7 @@
 Feature: Host meta request
 	As a user of diaspora-federation
   I should be able to send a HostMeta request to a diaspora pod
-  And receive back valid information about hte meta host
+  And receive back valid information about the meta host
 
   Scenario: sending host meta request to existing server
   	Given an existing server

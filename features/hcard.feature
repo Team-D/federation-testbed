@@ -4,13 +4,16 @@ Feature: Hcard request
   And receive back valid information about a user account
 
   Background:
-   Given an existing user account diaspora_user	
-    Given an existing webfinger document
+  	Given an existing server 
 
-  Scenario: Existing a webfinger document
-    Then I make a hcard-request
-    Then the status code should be success	
-    Then I should receive a valid hcard document
+  Scenario: Existing hcard document
+		Given an existing user account diaspora_user	
+		Given an existing webfinger document
+    When I make a hcard-request
+    Then the status code should be success
     And the document should contain User profile	
+    And I should receive a valid hcard document	
 
-
+  Scenario: hcard request with not existing user
+  	When I make a hcard request with not existing user
+  	Then the status code should be not found

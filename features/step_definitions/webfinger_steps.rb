@@ -1,13 +1,17 @@
-Given(/^an existing user account diaspora_user$/) do 
-  @diaspora_user = 'carolina@diaspora-fr.org'
+When(/^I make a webfinger request with not existing user$/) do
+  begin
+  	RestClient.get 'https://'+ @server +'//webfinger?q=acct:lkasdjflasjiohsdfgj@' + @server
+  rescue => e
+  	@invalid_request = e.to_s
+  end
 end
 
-Then(/^I make a webfinger\-request to an existing diaspora pod with url$/) do
-  RestClient.get 'https://diaspora-fr.org//webfinger?q=acct:'+ @diaspora_user
+When(/^I make a webfinger\-request to an existing diaspora pod$/) do
+  RestClient.get 'https://'+ @server +'//webfinger?q=acct:'+ @diaspora_user
 end
 
 Then(/^I should receive a valid webfinger document$/) do
-  @response = RestClient.get 'https://diaspora-fr.org//webfinger?q=acct:' + @diaspora_user
+  @response = RestClient.get 'https://' + @server + '//webfinger?q=acct:' + @diaspora_user
 end
 
 Then(/^the document type should be XML$/) do
