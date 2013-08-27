@@ -1,9 +1,9 @@
 Given(/^an existing user account diaspora_user$/) do 
-  @diaspora_user = 'carolinagc@joindiaspora.com'
+  read_config()
 end
 
 Given(/^an existing server$/) do
-  @server = "joindiaspora.com"
+  read_config()
 end
 
 Then(/^the status code should be success$/) do
