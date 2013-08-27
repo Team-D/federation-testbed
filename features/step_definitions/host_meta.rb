@@ -7,9 +7,10 @@ When(/^I send a host meta request to an existing diaspora pod$/) do
 end
 
 Then(/^it should contain a link to the webfinger document$/) do
-  pending #@response.to_s.index("template") != nil
-  # ((https?):((\/\/)|(\\\\))+[\w\d:#@%\/;$()~_?\+-=\\\.&]*)
+  @webfinger_url = @response.to_s.rpartition(/(https?):((\/\/)|(\\\\))+[\w\d:\#\@\%\/;$()~_?\+-=\\\.&]*/)[-2] + "mokus@joindiaspora.com"
+  RestClient.get @webfinger_url
 end
+
 
 
 
