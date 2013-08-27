@@ -10,10 +10,6 @@ Then(/^I should receive a valid webfinger document$/) do
   @response = RestClient.get 'https://diaspora-fr.org//webfinger?q=acct:' + @diaspora_user
 end
 
-Then(/^the status code should be success$/) do
-  @response.code == 200
-end
-
 Then(/^the document type should be XML$/) do
   @response.to_s.index("application/xrd+xml") == 0
 end

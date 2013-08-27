@@ -10,7 +10,7 @@ Feature: Hcard request
   Scenario: Existing a webfinger document
     Then I make a hcard-request
     Then the status code should be success	
-#    Then I should receive a valid hcard document
+    Then I should receive a valid hcard document
     And the document should contain User profile	
 
 
