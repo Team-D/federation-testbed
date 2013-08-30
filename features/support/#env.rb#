@@ -1,3 +1,0 @@
-require 'diaspora-federation'
-require 'rest_client'
-require 'nokogiri'
