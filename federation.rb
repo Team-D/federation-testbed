@@ -8,9 +8,7 @@ get '/federation/host-meta' do
 
 end
 
-get '/federation//webfinger' do
-#  e = DiasporaFederation::Entities::StatusMessage.new({ raw_message: 'This is a  lala text', guid: SecureRandom.hex(16), diaspora_handle: 'carolina@lala.net', created_at: DateTime.now, public: true})
-#  @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolina@lala.net', @pkey, e)
+get '/federation/webfinger' do
   @pkey = OpenSSL::PKey::RSA.new File.read('/home/sonduk/Documentos/mis_cosillas/proyectos/diaspora/wk3/carolinagc_public_wk3.asc')
   wf = DiasporaFederation::WebFinger::WebFinger.from_account({ acct_uri:    'lala@example.com',
                     alias_url:   'https://server.example/lala/lala3412',
@@ -24,8 +22,8 @@ get '/federation//webfinger' do
 
 
   
-  @xml = wf.to_xml
-  erb :index 
+  wf.to_xml
+
 
 end
 
