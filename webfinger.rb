@@ -2,7 +2,7 @@ require 'sinatra'
 require "bundler/setup"
 require 'diaspora-federation'
 
-get '/webfinger' do
+get '/federation//webfinger' do
 #  e = DiasporaFederation::Entities::StatusMessage.new({ raw_message: 'This is a  lala text', guid: SecureRandom.hex(16), diaspora_handle: 'carolina@lala.net', created_at: DateTime.now, public: true})
 #  @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolina@lala.net', @pkey, e)
   @pkey = OpenSSL::PKey::RSA.new File.read('/home/sonduk/Documentos/mis_cosillas/proyectos/diaspora/wk3/carolinagc_public_wk3.asc')
