@@ -6,7 +6,7 @@ When(/^I make a webfinger request with not existing user$/) do
   end
 end
 
-When(/^I make a webfinger\-request to an existing diaspora pod$/) do
+When(/^I make a webfinger request to an existing diaspora pod$/) do
   RestClient.get 'https://'+ @server +'//webfinger?q=acct:'+ @diaspora_user
 end
 

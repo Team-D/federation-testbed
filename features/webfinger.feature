@@ -8,7 +8,7 @@ Feature: Webfinger request
     Given an existing server
 
   Scenario: Request with existing user account
-    When I make a webfinger-request to an existing diaspora pod
+    When I make a webfinger request to an existing diaspora pod
     Then I should receive a valid webfinger document
     Then the status code should be success
     And the document type should be XML
