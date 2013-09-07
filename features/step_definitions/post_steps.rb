@@ -1,21 +1,27 @@
 Given(/^a public message$/) do
-  e = DiasporaFederation::Entities::StatusMessage.new({ raw_message: 'This is a  lala text', guid: SecureRandom.hex(16), diaspora_handle: 'carolina@wk3.org', created_at: DateTime.now, public: true})
+  # MK: I propose to use more meaningful variable names
+  e = DiasporaFederation::Entities::StatusMessage.new({
+    raw_message: 'This is a  lala text', guid: SecureRandom.hex(16),
+    diaspora_handle: 'carolina@wk3.org', created_at: DateTime.now, public: true })
+  # MK: This will not work on any other machine than your own
   @pkey = OpenSSL::PKey::RSA.new File.read('/home/sonduk/Documentos/mis_cosillas/proyectos/diaspora/wk3/carolinagc_public_wk3.asc')
   @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolina@wk3.org', @pkey, e)
-puts "PUBLIC XML" + @xml
+
+  puts "PUBLIC XML" + @xml
 end
 
 Given(/^a private message$/) do
-#  @pkey = OpenSSL::PKey::RSA.new @private_key
   @pkey = OpenSSL::PKey::RSA.new File.read('/home/sonduk/Documentos/mis_cosillas/proyectos/diaspora/wk3/carolinagc_private_wk3.asc')
   @pubkey= OpenSSL::PKey::RSA.new File.read('/home/sonduk/Documentos/mis_cosillas/proyectos/diaspora/wk3/carolinagc_public_wk3.asc')
   e = DiasporaFederation::Entities::StatusMessage.new({ raw_message: 'text', guid: SecureRandom.hex(16), diaspora_handle: 'carolina@wk3.org', created_at: DateTime.now,  public: false})
   @xml = DiasporaFederation::Salmon::EncryptedSlap.generate_xml('carolina@wk3.org', @pkey, e, @pubkey)
 
-puts "PRIVATE XML" + @xml
+  puts "PRIVATE XML" + @xml
 end
 
 When(/^I send a public message$/) do
+  # MK: Just speculating because I cannot test it myself right now, but have you tried it like this?
+  # RestClient.post("https://wk3.org/receive/public", @xml)
   RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
 end
 
