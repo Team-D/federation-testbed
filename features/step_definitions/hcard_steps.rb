@@ -1,13 +1,17 @@
 Given(/^an existing webfinger document$/) do
   url = 'https://' + @server + '//webfinger?q=acct:' + @diaspora_user
+  # MK: Consider using interpolation vs. concatenation (throughout the project).
+  # Not a must -- but more 'idiomatic'
+  # http://stackoverflow.com/questions/10076579/string-concatenation-vs-interpolation-in-ruby
   @webfinger = Nokogiri::XML(open(url))
+  # MK: I sould suggest to stricly separate responsibililties of RestClient (for requests) and Nokogiri (for parsing)
 end
 
 When(/^I make a hcard request with not existing user$/) do
-	begin
-  	RestClient.get 'https://' + @server + '/hcard/users/23@42@notvaliduser'
+  begin
+    RestClient.get 'https://' + @server + '/hcard/users/23@42@notvaliduser'
   rescue => e
-  	@invalid_request = e.to_s
+    @invalid_request = e.to_s
   end
 end
 
