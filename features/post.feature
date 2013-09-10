@@ -7,7 +7,7 @@ Feature: Post messages
   	 Given a public message
   	 Given an existing server
 	 When I send a public message 
-#   	Then the status code should be success	 
+   	Then the status code should be success	 
 
 
   Scenario: sending a private message 
