@@ -1,0 +1,9 @@
+body {
+  background: black;
+  color: #3FF;  
+  margin: 0 0 0 200px;
+} 
+
+.post_titles {
+  margin-top: 20px;
+}

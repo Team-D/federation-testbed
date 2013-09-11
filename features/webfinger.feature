@@ -4,11 +4,11 @@ Feature: Webfinger request
   And receive back valid information about a user account
 
   Background:
-   Given an existing user account diaspora_user
-   Given an existing server	
+    Given an existing user account diaspora_user
+    Given an existing server
 
   Scenario: Request with existing user account
-    When I make a webfinger-request to an existing diaspora pod
+    When I make a webfinger request to an existing diaspora pod
     Then I should receive a valid webfinger document
     Then the status code should be success
     And the document type should be XML
@@ -16,5 +16,5 @@ Feature: Webfinger request
 
   Scenario: Request with not existing user
     When I make a webfinger request with not existing user
-    Then the status code should be not found    
+    Then the status code should be not found
 
