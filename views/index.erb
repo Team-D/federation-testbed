@@ -3,14 +3,28 @@
 <html>
   <head>
     <link href='css/stream.css' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="http://railsgirls.com/assets/bootstrap.css">
   </head>
 
   <body>
-    <h1> stream </h1>
- 
-     <%= @post_titles  %>
-    
-    <h1>bodies</h1>
-    <%= @post_bodies %>
+	  <div class="container">
+	    <h1> stream </h1>
+	  </div>
+	  <div class="container">
+	    <form action="/" method="POST">
+		    <input type="text" name="post_content" />
+		    <input type="submit">
+			</form>
+
+			<div class="post_titles">
+				<%= @new_post  %>
+			</div>
+	    
+	    <%= @post_titles  %>
+	    
+	    <h1>bodies</h1>
+	    <%= @post_bodies %>
+	   
+	   </div>
   </body>
 </html>
