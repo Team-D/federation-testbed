@@ -24,9 +24,8 @@ def generate_keys
 end
 
 get '/federation/host-meta' do
-  hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('http://tinys.heroku.com')
+  hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('http://tinyd.heroku.com')
   hostmeta.to_xml
-
 end
 
 get '/' do
@@ -46,7 +45,7 @@ get '/federation/webfinger' do
     hcard_url:   'https://tinyd.heroku.com/federation/hcard/',
     seed_url:    'https://tinyd.heroku.com/',
     profile_url: 'https://tinyd.heroku.com/u/user',
-    updates_url: 'https://diaspora-fr.org/public/user.atom',
+    updates_url: 'https://tinyd.heroku.com/public/user.atom',
     guid:        '0123456789abcdef',
     pubkey:      serialized_public_key
   })
@@ -54,15 +53,19 @@ get '/federation/webfinger' do
 end
 
 get '/federation/hcard' do
+	key_size = 4096
+  serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
+  serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
+
   hcard = DiasporaFederation::WebFinger::HCard.from_account({
     guid:             '0123456789abcdef',
-    diaspora_handle:  'user@tinys.heroku.com',
+    diaspora_handle:  'user@tinyd.heroku.com',
     full_name:        'username',
     url:              'https://tinys.heroku.com/',
     photo_full_url:   'https://tinys.heroku.com/uploads/f.jpg',
     photo_medium_url: 'https://tinys.heroku.com/uploads/m.jpg',
     photo_small_url:  'https://tinys.heroku.com/uploads/s.jpg',
-    pubkey:           'ABCDEF==',
+    pubkey:           serialized_public_key,
     searchable:       true,
     first_name:       'user',
     last_name:        'user last name'
@@ -71,11 +74,14 @@ get '/federation/hcard' do
 end
 
 def generate_xml(post_content)
+		key_size = 4096
+  serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
+  serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
+
   e = DiasporaFederation::Entities::StatusMessage.new({
                                                         raw_message: '#{post_content}', guid: SecureRandom.hex(16),
                                                         diaspora_handle: 'carolinagc@wk3.org', created_at: DateTime.now, public: true })
-  @pkey =  OpenSSL::PKey::RSA::generate(4096).to_s
-  @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolinagc@wk3.org', @pkey, e)
+  @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolinagc@wk3.org', serialized_private_key, e)
   #RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
 end
 
