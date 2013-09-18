@@ -23,7 +23,7 @@ def generate_keys
   @serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
 end
 
-get '/federation/host-meta' do
+get '/.well-known/host-meta' do
   hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('http://tinyd.heroku.com')
   hostmeta.to_xml
 end
@@ -61,10 +61,10 @@ get '/federation/hcard' do
     guid:             '0123456789abcdef',
     diaspora_handle:  'user@tinyd.heroku.com',
     full_name:        'username',
-    url:              'https://tinys.heroku.com/',
-    photo_full_url:   'https://tinys.heroku.com/uploads/f.jpg',
-    photo_medium_url: 'https://tinys.heroku.com/uploads/m.jpg',
-    photo_small_url:  'https://tinys.heroku.com/uploads/s.jpg',
+    url:              'https://tinyd.heroku.com/',
+    photo_full_url:   'https://tinyd.heroku.com/uploads/f.jpg',
+    photo_medium_url: 'https://tinyd.heroku.com/uploads/m.jpg',
+    photo_small_url:  'https://tinyd.heroku.com/uploads/s.jpg',
     pubkey:           serialized_public_key,
     searchable:       true,
     first_name:       'user',
