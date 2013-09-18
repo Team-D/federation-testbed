@@ -34,7 +34,7 @@ get '/' do
   erb :index
 end
 
-get '/federation/webfinger' do
+get '/webfinger' do
 	key_size = 4096
   serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
   serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
