@@ -62,7 +62,7 @@ get '/federation/hcard' do
     diaspora_handle:  'user@tinyd.heroku.com',
     full_name:        'username',
     url:              'https://tinyd.heroku.com/',
-    photo_full_url:   'https://tinyd.heroku.com/uploads/f.jpg',
+    photo_full_url:   'https://tinyd.heroku.com/public/profile.jpg',
     photo_medium_url: 'https://tinyd.heroku.com/uploads/m.jpg',
     photo_small_url:  'https://tinyd.heroku.com/uploads/s.jpg',
     pubkey:           serialized_public_key,
