@@ -5,6 +5,10 @@ require 'open-uri'
 require "erb"
 require "rest-client"
 
+before do
+	@new_post = params[:new_post]
+end
+
 def get_stream 
   @doc = Nokogiri::XML(open('https://joindiaspora.com/public/carolinagc.atom'))
   @post_title = @doc.xpath('//xmlns:title')
@@ -24,8 +28,21 @@ def generate_keys
 end
 
 get '/.well-known/host-meta' do
-  hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('http://tinyd.heroku.com')
+  hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('https://tinyd.heroku.com')
   hostmeta.to_xml
+end
+
+def generate_xml_public(post_content)
+	key_size = 512
+  serialized_private_key = OpenSSL::PKey::RSA::generate(key_size)
+  serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
+
+	#generates from the post content the xml which is needed to send it to other pods
+  e = DiasporaFederation::Entities::StatusMessage.new({
+      raw_message: '#{post_content}', guid: SecureRandom.hex(16),
+      diaspora_handle: 'user@tinyd.heroku.com', created_at: DateTime.now, public: true })
+	@xml = DiasporaFederation::Salmon::Slap.generate_xml('user@tiny.heroku.com', serialized_private_key, e)
+  RestClient.post "https://joindiaspora.com/receive/public", {:xml => @xml}
 end
 
 get '/' do
@@ -63,32 +80,20 @@ get '/federation/hcard' do
     full_name:        'username',
     url:              'https://tinyd.heroku.com/',
     photo_full_url:   'https://tinyd.heroku.com/profile.jpg',
-    photo_medium_url: 'https://tinyd.heroku.com/uploads/m.jpg',
-    photo_small_url:  'https://tinyd.heroku.com/uploads/s.jpg',
+    photo_medium_url: 'https://tinyd.heroku.com/profile.jpg',
+    photo_small_url:  'https://tinyd.heroku.tinyscom/profile.jpg',
     pubkey:           serialized_public_key,
     searchable:       true,
     first_name:       'user',
-    last_name:        'user last name'
+    last_name:        'last name'
   })
   html_string = hcard.to_html
 end
 
-def generate_xml(post_content)
-		key_size = 4096
-  serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
-  serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
-
-  e = DiasporaFederation::Entities::StatusMessage.new({
-                                                        raw_message: '#{post_content}', guid: SecureRandom.hex(16),
-                                                        diaspora_handle: 'carolinagc@wk3.org', created_at: DateTime.now, public: true })
-  @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolinagc@wk3.org', serialized_private_key, e)
-  #RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
-end
-
 post '/' do
   get_stream
-  @new_post = "#{params[:post_content]}"
-  #generate_xml(@new_post)
+ 	@new_post = "#{params[:post_content]}"
+ 	generate_xml_public(@new_post)
   erb :index, :locals => {:new_post => @new_post} 
 end
 
