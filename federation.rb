@@ -59,8 +59,8 @@ def generate_xml_public(post_content)
   e = DiasporaFederation::Entities::StatusMessage.new({
       raw_message: '#{post_content}', guid: SecureRandom.hex(16),
       diaspora_handle: "#{@user}@tinyd.heroku.com", created_at: DateTime.now, public: true })
-	@xml = DiasporaFederation::Salmon::Slap.generate_xml("#{@user}@tiny.heroku.com", @private_key, e)
-  RestClient.post "https://joindiaspora.com/receive/public", {:xml => @xml}
+	@xml = DiasporaFederation::Salmon::Slap.generate_xml("#{@user}@tinyd.heroku.com", @private_key, e)
+  RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
 end
 
 get '/' do
