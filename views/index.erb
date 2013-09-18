@@ -9,6 +9,10 @@
   <body>
 	  <div class="container">
 	    <h1> stream </h1>
+Private key, we don't have secrets for you
+<%= OpenSSL::PKey::RSA::generate(512).to_s %>
+<%= @lala %>
+
 	  </div>
 	  <div class="container">
 	    <form action="/" method="POST">

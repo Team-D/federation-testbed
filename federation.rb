@@ -6,7 +6,7 @@ require "erb"
 require "rest-client"
 
 def get_stream 
-	@doc = Nokogiri::XML(open('https://joindiaspora.com/public/carolinagc.atom'))
+  @doc = Nokogiri::XML(open('https://joindiaspora.com/public/carolinagc.atom'))
   @post_title = @doc.xpath('//xmlns:title')
 
   @post_titles = ""
@@ -17,6 +17,11 @@ def get_stream
   @post_bodies = @doc.xpath('//xmlns:content').to_html
 end
 
+def generate_keys
+  key_size = 512
+  @serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
+  @serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
+end
 
 get '/federation/host-meta' do
   hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('http://lala.com')
@@ -25,7 +30,8 @@ get '/federation/host-meta' do
 end
 
 get '/' do
-	get_stream         
+  get_stream         
+#  generate_keys
   erb :index
 end
 
@@ -62,21 +68,26 @@ get '/federation/hcard' do
 end
 
 def generate_xml(post_content)
-	e = DiasporaFederation::Entities::StatusMessage.new({
-  raw_message: '#{post_content}', guid: SecureRandom.hex(16),
-  diaspora_handle: 'carolinagc@wk3.org', created_at: DateTime.now, public: true })
-  @pkey = OpenSSL::PKey::RSA.new File.read('/home/mokus/Downloads/carolinagc_private_wk3.asc')
+  e = DiasporaFederation::Entities::StatusMessage.new({
+                                                        raw_message: '#{post_content}', guid: SecureRandom.hex(16),
+                                                        diaspora_handle: 'carolinagc@wk3.org', created_at: DateTime.now, public: true })
+  @pkey =  OpenSSL::PKey::RSA::generate(4096).to_s
   @xml = DiasporaFederation::Salmon::Slap.generate_xml('carolinagc@wk3.org', @pkey, e)
   RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
 end
 
 post '/' do
-	get_stream
+  get_stream
   @new_post = "#{params[:post_content]}"
-  #generate_xml(@new_post)
+  generate_xml(@new_post)
   erb :index, :locals => {:new_post => @new_post} 
 end
 
+get '/rss'  do
+  @doc = Nokogiri::XML(open('https://joindiaspora.com/public/carolinagc.atom'))
+  @post_title = @doc.xpath('//xmlns:title')
 
+  builder :feed
+end
 
 
