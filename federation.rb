@@ -42,9 +42,9 @@ get '/webfinger' do
   wf = DiasporaFederation::WebFinger::WebFinger.from_account({ 
 		acct_uri:    'user@tinyd.heroku.com',
     alias_url:   'https://tinyd.heroku.com/lala/lala3412',
-    hcard_url:   'https://tinyd.heroku.com/federation/hcard/',
+    hcard_url:   'https://tinyd.heroku.com/federation/hcard',
     seed_url:    'https://tinyd.heroku.com/',
-    profile_url: 'https://tinyd.heroku.com/u/user',
+    profile_url: 'https://tinyd.heroku.com/',
     updates_url: 'https://tinyd.heroku.com/public/user.atom',
     guid:        '0123456789abcdef',
     pubkey:      serialized_public_key
