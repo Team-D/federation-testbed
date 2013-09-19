@@ -13,8 +13,8 @@ before do
 end
 
 def set_up_user
-	@user = "alice"
-	@guid = '0guidnotyettaken'
+	@user = "bob"
+	@guid = '1guidnotyettaken'
 end
 
 def get_stream 
@@ -40,6 +40,7 @@ AQIhANT8yrVx8Bxj3qd8gkXr8vREcLTQ6VWdtyOb80tDxKnpAiEAzhImFA3ijIUR
 4etm4aYEdne5AiBMybyAuo/R9wAm3i7RnIDSPVrTxA2qO3ywc5pAPqJuywIgI2kt
 eQhMdKZgywr+rKn170HYlW6mWE9OWM9M48NtAEg=
 -----END RSA PRIVATE KEY-----")
+
 	@public_key = OpenSSL::PKey::RSA.new("-----BEGIN PUBLIC KEY-----
 MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKtyhJJ31VEwBydStIxJQNFqRCSm1/OE
 UXPXNvjrzlOw3eu8HUNvY+N9SOmUiZXvaSxbMJdpMo5aCMc8vkoubbsCAwEAAQ==
@@ -59,7 +60,7 @@ def generate_xml_public(post_content)
   e = DiasporaFederation::Entities::StatusMessage.new({
       raw_message: '#{post_content}', guid: SecureRandom.hex(16),
       diaspora_handle: "#{@user}@tinyd.heroku.com", created_at: DateTime.now, public: true })
-	@xml = DiasporaFederation::Salmon::Slap.generate_xml("#{@user}@tinyd.heroku.com", @private_key, e)
+  @xml = DiasporaFederation::Salmon::Slap.generate_xml("#{@user}@tinyd.heroku.com", @private_key, e)
   RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
 end
 
