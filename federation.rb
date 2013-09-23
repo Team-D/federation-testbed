@@ -62,7 +62,7 @@ def generate_xml_public(post_content)
 end
 
 def read_posts_file()
-	posts_file = File.open('posts.txt', 'r') 
+	posts_file = File.open('posts.txt', 'a+') 
 	posts_file.each_line {|line| @posts_array.push(line)}
 	posts_file.close
 end
