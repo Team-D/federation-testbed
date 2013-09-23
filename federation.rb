@@ -7,7 +7,8 @@ require "rest-client"
 
 
 before do
-	@new_post = params[:new_post]
+	@new_post 
+	@posts_array = []
 	get_keys
 	set_up_user
 end
@@ -45,14 +46,10 @@ eQhMdKZgywr+rKn170HYlW6mWE9OWM9M48NtAEg=
 MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKtyhJJ31VEwBydStIxJQNFqRCSm1/OE
 UXPXNvjrzlOw3eu8HUNvY+N9SOmUiZXvaSxbMJdpMo5aCMc8vkoubbsCAwEAAQ==
 -----END PUBLIC KEY-----")
-	#key_size = 512
-  #@serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
-  #@serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
-end
-
-get '/.well-known/host-meta' do
-  hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('https://tinyd.heroku.com')
-  hostmeta.to_xml
+	#the way to generate keys: 
+		#key_size = 512
+	  #@serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
+	  #@serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
 end
 
 def generate_xml_public(post_content)
@@ -64,8 +61,29 @@ def generate_xml_public(post_content)
   RestClient.post "https://wk3.org/receive/public", {:xml => @xml}
 end
 
+def read_posts_file()
+	posts_file = File.open('posts.txt', 'r') 
+	posts_file.each_line {|line| @posts_array.push(line)}
+	posts_file.close
+end
+
+def save_posts_to_file(post_content)
+	posts_file = File.open('posts.txt', 'a+')
+	posts_file << post_content << "\n"
+	posts_file.close
+end
+
+
+#routes
+
+get '/.well-known/host-meta' do
+  hostmeta = DiasporaFederation::WebFinger::HostMeta.from_base_url('https://tinyd.heroku.com')
+  hostmeta.to_xml
+end
+
 get '/' do
-  get_stream    
+  get_stream 
+  read_posts_file()   
   erb :index
 end
 
@@ -104,7 +122,9 @@ post '/' do
   get_stream
  	@new_post = "#{params[:post_content]}"
  	generate_xml_public(@new_post)
-  erb :index, :locals => {:new_post => @new_post} 
+ 	save_posts_to_file(@new_post)
+ 	read_posts_file()
+  erb :index
 end
 
 get '/public/user.atom'  do

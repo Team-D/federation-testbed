@@ -14,12 +14,15 @@
 	    <form action="/" method="POST">
 		    <input type="text" name="post_content" />
 		    <input type="submit">
-			</form>
+		</form>
 
+		<% posts = @posts_array.reverse %>
+		<% posts.each do |post| %>
 			<div class="post_titles">
-				<%= @new_post  %>
-			</div>
-	    
+  				<%= post %>
+  			</div>
+		<% end %>
+
 	    <%= @post_titles  %>
 	    
 	    <h1>bodies</h1>
