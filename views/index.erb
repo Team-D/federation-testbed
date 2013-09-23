@@ -3,6 +3,12 @@
 <html>
   <head>
     <link href='css/stream.css' rel='stylesheet' type='text/css' />
+    <script type="text/javascript">
+	    function jump_to(id) {
+    	window.location.hash = '#' + 100*id;
+		}	
+	</script>
+
     <link rel="stylesheet" href="http://railsgirls.com/assets/bootstrap.css">
   </head>
 
@@ -23,10 +29,10 @@
   			</div>
 		<% end %>
 
-	    <%= @post_titles  %>
+	    <%= @post_titles_str  %>
 	    
 	    <h1>bodies</h1>
-	    <%= @post_bodies %>
+	    <%= @post_bodies_str %>
 	   
 	   </div>
   </body>

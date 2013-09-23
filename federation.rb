@@ -20,14 +20,20 @@ end
 
 def get_stream 
   @doc = Nokogiri::XML(open('https://joindiaspora.com/public/carolinagc.atom'))
-  @post_title = @doc.xpath('//xmlns:title')
+  @post_titles = @doc.xpath('//xmlns:title')
 
-  @post_titles = ""
-  for i in 1..(@post_title.length - 1)
-    @p = @post_title[i].to_html
-    @post_titles << @p.gsub!("title", "div class=post_titles") << "<a href=''>read more </a>"
+  @post_titles_str = ""
+  for i in 1..(@post_titles.length - 1)
+    @p = @post_titles[i].to_html
+    @post_titles_str << @p.gsub!("title", "div class=post_titles ") << "<a id=" << i.to_s << " onclick='jump_to(id)'>read more </a>"
   end
-  @post_bodies = @doc.xpath('//xmlns:content').to_html
+
+  @post_bodies = @doc.xpath('//xmlns:content')
+  @post_bodies_str = ""
+  for i in 1..(@post_bodies.length - 1)
+    @p = @post_bodies[i].to_html
+    @post_bodies_str << @p.gsub!("content", "div class=post_titles " << "id=" << (100*i).to_s)
+  end
 end
 
 def get_keys
@@ -134,4 +140,6 @@ get '/public/user.atom'  do
   builder :feed
 end
 
+get '/read_post' do
 
+end
