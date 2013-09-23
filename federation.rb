@@ -14,7 +14,7 @@ before do
 end
 
 def set_up_user
-	@user = "bob"
+	@user = "cucumber"
 	@guid = '8a82cc30c12d33bafb6d2cae95cb4355'
 end
 
@@ -38,24 +38,14 @@ end
 
 def get_keys
 	 #yes this private key has been published on purpose
- 	@private_key = OpenSSL::PKey::RSA.new("-----BEGIN RSA PRIVATE KEY-----
-MIIBOQIBAAJBAKtyhJJ31VEwBydStIxJQNFqRCSm1/OEUXPXNvjrzlOw3eu8HUNv
-Y+N9SOmUiZXvaSxbMJdpMo5aCMc8vkoubbsCAwEAAQJAMzDORK1jFAqzGBqprflx
-URXZotfuQtePOndYAprl0DbR7HsJV67EZWsFCdOEQE4zgf7syrsR7Yq2afa6mR1r
-AQIhANT8yrVx8Bxj3qd8gkXr8vREcLTQ6VWdtyOb80tDxKnpAiEAzhImFA3ijIUR
-1G/j0fPYMbYQzh8mG5+sQ01xlE8m8AMCIFAWOhbeH/5c40UxQT8PiMymy4aCI6sI
-4etm4aYEdne5AiBMybyAuo/R9wAm3i7RnIDSPVrTxA2qO3ywc5pAPqJuywIgI2kt
-eQhMdKZgywr+rKn170HYlW6mWE9OWM9M48NtAEg=
------END RSA PRIVATE KEY-----")
+ 	@private_key = OpenSSL::PKey::RSA.new("-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA28B2MU4p2p/T/LzzXwb8rU3peyYpivKDvy45dpJg+OSjuKlS\nVxFsyYcC/8LhXfVMYmePOEtuqmUkCsgu3oKytz77DcV01QZwYVHJXrsSGm15gTaI\nmF5vdZvt+UUo2EgLBQJfu9R2ekYZHqF2P4pmsEsfdyJpk6wkd78IkJN7RJ2RX+5F\nkpyA29RHpW113d8bRDXWZIGGzWv80vbeQyZ5YRFtZW1fc1xqv2P6aHI1cmxYpqjX\nw956DJt9gnLsCNtTR1gqur5OW7Bb3CcEwsQVNdatYtmlJ14C5aAjdDEf+51uWO2N\ne9NPyb/6J1lhx0826a4aUqzsCxcxz1zHa52yUwIDAQABAoIBAQCZ4w9hu8DnjqFf\nDdrIIxZzLmpgiPryiJ3mFbK77AnoggR83mYA/vzVq6xX+trjd1IEX00WOQzIWoeA\n3Wqk+5W3aW1Z2XrVaurr2+BObGZjB2LdL5k8SnV3QLjHpLzTqK++1EjCOii1u7z/\njEZIfN0oe5MPVJPmi9gF20teI0lhZEIQerSAzL/VPD5Lr2vOOVVUJXz2C7LdnRMO\naWrydugduYiA0m4I8SAFNiMRQlK5NHAwkaaaa/hPGqBNppXd3LeedxeiisyifxQy\nhCNxtU9CHHGTPc8GJyPjtEtj7Rb8hA62aR/7NpxXSmwpF2nKdJMQ5JuVzG2Ag5SN\n5XTc911xAoGBAPKPD860xHVEg7JKdOw2BR5agEbER9lBJS3IO0BDesRbEhvJkPxP\nVpOBKvUK07/MFF0lz2ONxmdTTb/V37P6sG4z8T5TfG6sttcYfEEH4PjEGkpMzYPI\nKdMtSPCzBT/13YWg3o8JemTGSTtYsXPw72aLbepJJPJH6dA2fsYV5ODNAoGBAOft\n3Am3t2Ycsnsu9iF+JLyRM/cRd7ZPMnHvhTkxRZHEOQGEU88aKlxSoznTQ482DPXz\n/ixmGIEQMZMwovOqas+u0HXCgxu60vhjiznz2KFOVs/npwVQfOyZmrs/rerKU4JW\nIX/x/hwIv2LT22u/ESpyIf8XzL75tq9hdF/nMl+fAoGAJJe+m8GbrdFTSO+Aqi4Q\nIZ8noQV1jWoNkNWXUr+bYsoWdki3bckOV5xx/ZvPjCzemZrdqbg2yVnA7gL3B7D3\nMvj1GSEBMbUutE6GWE02/HChQrpJeusUnD5FtcJcNWUDMWiuise0RkW/wItF4ibk\nBwVb5K96Om7s8DN4dqvQ5rUCgYEA3KEhmPzzsmfKQfTCn8noGJno3Tf4sa1VR52b\nFnUQwUHxGMhREcrKUVkrfW7D7hB08+RP/tyAowZMosC5wyJyyW57UArhvhdTaocH\ngvG9OnXTj6PG9v9CV7EnyMkjIR+noW1eIOCL4w9PQSxYp37zTXWVcZ2qYGIcr2n9\n0t2UxfECgYBqLlMxurQG7Ms7rF0yiWJ+MSkkgnhw1kYaZO6Qr6rfurjR1phIYAR7\nBXOsONWr0zhICHmc7LlwN2LIzVaubYBkJ1SpQOeJhk7Jp8jqs6fjACq/BPAmzhqB\neo3+TbL/ehYOXsw3MkZtmdASBkF6cg6HX3jB7pETqxwS9eDN8k5LQg==\n-----END RSA PRIVATE KEY-----\n")
 
-	@public_key = OpenSSL::PKey::RSA.new("-----BEGIN PUBLIC KEY-----
-MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKtyhJJ31VEwBydStIxJQNFqRCSm1/OE
-UXPXNvjrzlOw3eu8HUNvY+N9SOmUiZXvaSxbMJdpMo5aCMc8vkoubbsCAwEAAQ==
------END PUBLIC KEY-----")
-	#the way to generate keys: 
-		#key_size = 512
-	  #@serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
-	  #@serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
+	@public_key = OpenSSL::PKey::RSA.new("-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA28B2MU4p2p/T/LzzXwb8\nrU3peyYpivKDvy45dpJg+OSjuKlSVxFsyYcC/8LhXfVMYmePOEtuqmUkCsgu3oKy\ntz77DcV01QZwYVHJXrsSGm15gTaImF5vdZvt+UUo2EgLBQJfu9R2ekYZHqF2P4pm\nsEsfdyJpk6wkd78IkJN7RJ2RX+5FkpyA29RHpW113d8bRDXWZIGGzWv80vbeQyZ5\nYRFtZW1fc1xqv2P6aHI1cmxYpqjXw956DJt9gnLsCNtTR1gqur5OW7Bb3CcEwsQV\nNdatYtmlJ14C5aAjdDEf+51uWO2Ne9NPyb/6J1lhx0826a4aUqzsCxcxz1zHa52y\nUwIDAQAB\n-----END PUBLIC KEY-----\n")
+
+  # the way to generate keys: 
+  # key_size = 512
+  # @serialized_private_key = OpenSSL::PKey::RSA::generate(key_size).to_s
+  # @serialized_public_key = OpenSSL::PKey::RSA.new(serialized_private_key).public_key.to_s
 end
 
 def generate_xml_public(post_content)
