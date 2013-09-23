@@ -15,7 +15,7 @@ end
 
 def set_up_user
 	@user = "bob"
-	@guid = '1guidnotyettaken'
+	@guid = '8a82cc30c12d33bafb6d2cae95cb4355'
 end
 
 def get_stream 
@@ -32,7 +32,7 @@ end
 
 def get_keys
 	 #yes this private key has been published on purpose
-	@private_key = OpenSSL::PKey::RSA.new("-----BEGIN RSA PRIVATE KEY-----
+ 	@private_key = OpenSSL::PKey::RSA.new("-----BEGIN RSA PRIVATE KEY-----
 MIIBOQIBAAJBAKtyhJJ31VEwBydStIxJQNFqRCSm1/OEUXPXNvjrzlOw3eu8HUNv
 Y+N9SOmUiZXvaSxbMJdpMo5aCMc8vkoubbsCAwEAAQJAMzDORK1jFAqzGBqprflx
 URXZotfuQtePOndYAprl0DbR7HsJV67EZWsFCdOEQE4zgf7syrsR7Yq2afa6mR1r
